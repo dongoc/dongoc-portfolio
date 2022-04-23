@@ -12,6 +12,7 @@ const Background = styled.div`
 
 const Title = styled.h1`
   font-size: 3rem;
+  font-family: 'JetBrains Mono', monospace;
 `
 
 function App() {
