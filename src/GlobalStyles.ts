@@ -3,6 +3,26 @@ import reset from 'styled-reset'
 
 export default createGlobalStyle`
 	${reset}
-	
-	@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;400;600&display=swap');
+
+	:root {
+		/* color */
+		--background-primary: #F7CBB2;
+
+		/* spacing */
+		--spacing-s: 10px;
+		--spacing-m: 20px;
+
+		/* size */
+		--screen-width: 960px;
+
+		/* animation */
+		@keyframes blinking {
+			0%		{ color: red; }
+			100%	{ color: yellow; }
+		}
+	}
+
+	* {
+		box-sizing: border-box;
+	}
 `
