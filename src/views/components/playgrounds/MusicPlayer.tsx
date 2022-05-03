@@ -53,14 +53,14 @@ const PrevButton = styled(NextButton)`
 
 const PlayButton = styled.div<{ status: PlayStatus }>`
   ${FlexCenterCSS}
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   background: var(--color-light-primary);
   border: var(--border-size-sm) solid var(--color-dark-primary);
-  border-radius: 25px;
+  border-radius: 18px;
   cursor: pointer;
 
-  ${p => p.status === 'play' && css`
+  ${p => p.status === 'pause' && css`
     &::after {
       content: '';
       width: 15px;
@@ -73,7 +73,7 @@ const PlayButton = styled.div<{ status: PlayStatus }>`
     }
   `}
 
-  ${p => p.status === 'pause' && css`
+  ${p => p.status === 'play' && css`
     &::after {
       content: '';
       width: 13px;
@@ -88,9 +88,9 @@ const PlayButton = styled.div<{ status: PlayStatus }>`
 
 const MusicProgressBar = styled.div<{ playingTime: string; remainingTime: string }>`
   position: relative;
-  height: 15px;
+  height: 12px;
   border: var(--border-size-sm) solid var(--color-dark-primary);
-  border-radius: 7px;
+  border-radius: 6px;
   background: var(--color-light-primary);
 
   &::after {
@@ -121,10 +121,10 @@ const MusicSlideButton = styled.div<{ playPercentage: number }>`
   top: 0;
   left: ${p => p.playPercentage}%;
   transform: translate(-50%, -35%);
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border: var(--border-size-sm) solid var(--color-dark-primary);
-  border-radius: 15px;
+  border-radius: 10px;
   background: linear-gradient(to right, var(--color-pink-secondary), var(--color-purple-secondary));
   cursor: pointer;
   z-index: 2;
@@ -151,7 +151,15 @@ const MusicPlayer = () => {
 
   const handleControlClick = (type: 'prev' | 'next') => {
     const addition = type === 'prev' ? -10 : 10
-    setPlayingTime(playingTime + addition)
+    const calcTime = playingTime + addition
+
+    if (type === 'next' && calcTime > totalTime) {
+      setPlayingTime(totalTime)
+    } else if (type === 'prev' && calcTime < totalTime) {
+      setPlayingTime(0)
+    } else {
+      setPlayingTime(playingTime + addition)
+    }
   }
 
   const handleProgressBarClick = (e: MouseEvent<HTMLDivElement>) => {
@@ -165,12 +173,14 @@ const MusicPlayer = () => {
   useEffect(() => {
     let timerId: NodeJS.Timer | undefined = undefined
 
-    if (playStatus === 'play' && totalTime > playingTime) {
-      timerId = setInterval(() => {
-        setPlayingTime(prev => prev + 1)
-      }, 1000)
-    } else if (playStatus === 'play' && totalTime === playingTime) {
+    if (playStatus === 'play') {
+      if (totalTime > playingTime) {
+        timerId = setInterval(() => {
+          setPlayingTime(prev => prev + 1)
+        }, 1000)
+      } else {
         setPlayingTime(0);
+      }
     } else {
       clearInterval(timerId)
     }
