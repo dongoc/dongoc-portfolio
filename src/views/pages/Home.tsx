@@ -1,11 +1,12 @@
 import { Background } from '../components/Background'
-import { Heading1, Body1 } from '../components/Typography'
+import LoadingBar from '../components/playgrounds/LoadingBar'
+import MusicPlayer from '../components/playgrounds/MusicPlayer'
 
 const HomePage = () => {
   return (
 		<Background>
-			<Heading1>Dongoc's website</Heading1>
-			<Body1>🚧 under construction</Body1>
+			<LoadingBar />
+			<MusicPlayer />
 		</Background>
 	)
 }
