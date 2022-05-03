@@ -24,7 +24,7 @@ const Footer = () => {
   return (
     <FooterWrapper>
       <FooterContainer>
-        Design inspired by <a href='https://www.freepik.com/free-vector/linear-vintage-vaporwave-background_13156547.htm'>freepik</a>
+        Design inspired by <a href='https://www.freepik.com/free-vector/linear-vintage-vaporwave-background_13156547.htm' target='_blank'>freepik</a>
       </FooterContainer>
     </FooterWrapper>
   )
